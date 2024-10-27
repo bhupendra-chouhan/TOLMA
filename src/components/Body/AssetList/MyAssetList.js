@@ -61,7 +61,6 @@ const MyAssetList = () => {
         const assetOwner = await getAssetOwner(tokenId);
         
         if (assetOwner.toLowerCase() == pubAddress) {
-          console.log("ipfsHashMetadata", ipfsHashMetadata);
           myAssetsList.push(ipfsHashMetadata);
         }
       }
