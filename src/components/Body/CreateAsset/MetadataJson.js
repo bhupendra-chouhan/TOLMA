@@ -2,24 +2,30 @@ import React, { useContext, useEffect, useState } from "react";
 import { uploadedAssetURIData } from "./CreateAsset";
 import { pubAddressData } from "../../AppLayout";
 import { PinataSDK } from "pinata-web3";
-import {prepareContractCall,createThirdwebClient,  getContract } from "thirdweb";
-import { useSendTransaction } from "thirdweb/react";
-import { defineChain } from "thirdweb/chains";
+import { ethers } from "ethers";
 
-// create the client with your clientId, or secretKey if in a server environment
-const client = createThirdwebClient({
-  clientId: process.env.REACT_APP_THIRDWEB_CLIENT_ID,
-});
-
-const chainId = Number(process.env.REACT_APP_ARBITRUM_SEPOLIA_CHAIN_ID);
-
-// connect to your contract
-const contract = getContract({
-  client,
-  chain: defineChain(chainId),
-  address:
-    process.env.REACT_APP_ARBITRUM_SEPOLIA_DEPLOYED_SMART_CONTRACT_ADDRESS,
-});
+const contractAddress = process.env.REACT_APP_ARBITRUM_SEPOLIA_DEPLOYED_SMART_CONTRACT_ADDRESS
+const contractABI = [
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_tokenURI",
+        type: "string",
+      },
+    ],
+    name: "mint",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+];
 
 const pinata = new PinataSDK({
   pinataJwt: process.env.REACT_APP_PINATA_JWT,
@@ -27,6 +33,16 @@ const pinata = new PinataSDK({
 });
 
 const Metadata = () => {
+  const [ipfsHash, setIpfsHash] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [contract, setContract] = useState(null);
+  const [account, setAccount] = useState("");
+  const [data, setData] = useState("");
+
+  // const {contract} = useContract(process.env.REACT_APP_ARBITRUM_SEPOLIA_DEPLOYED_SMART_CONTRACT_ADDRESS);
+  // const { mutateAsync: mint } = useContractWrite(contract, "mint");
+
   const { uploadedNFTImageURI, uploadedNFTVideoURI } =
     useContext(uploadedAssetURIData);
   const { pubAddress } = useContext(pubAddressData);
@@ -42,12 +58,16 @@ const Metadata = () => {
     ],
   });
 
-  const [ipfsHash, setIpfsHash] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { mutate: sendTransaction } = useSendTransaction();
-
   useEffect(() => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      contractABI,
+      signer
+    );
+    setContract(contractInstance);
+
     setNftData((prevData) => ({
       ...prevData,
       image: uploadedNFTImageURI,
@@ -91,13 +111,19 @@ const Metadata = () => {
     }));
   };
 
-  const mintAsset = () => {
-    const transaction = prepareContractCall({
-      contract,
-      method: "function mint(string _tokenURI) returns (uint256)",
-      params: [ipfsHash],
-    });
-    sendTransaction(transaction);
+  const mintAsset = async () => {
+    try {
+
+      if (contract) {
+        const transaction = await contract.mint(
+          "bafkreiaxuevqbctbj5wmr52u5d2rc5cdeccmuqbwvujymkvhxn5dicgewi"
+        ); // Replace with your function name
+        await transaction.wait();
+        console.log("Transaction successful:", transaction);
+      }
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
@@ -163,9 +189,9 @@ const Metadata = () => {
             </div>
             <div>
               <button
-                className="border content- rounded-lg bg-green-400 py-2 hover:bg-green-800 hover:text-white"
+                className="border w-full rounded-lg  bg-green-400 py-2 hover:bg-green-800 hover:text-white"
                 onClick={mintAsset}
-                // disabled={isLoading}
+                disabled={isLoading}
               >
                 {isLoading ? "Miniting..." : "Mint"}
               </button>

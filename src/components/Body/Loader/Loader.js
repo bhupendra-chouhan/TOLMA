@@ -2,7 +2,7 @@ import React from "react";
 import '../../../loader.css';
 
 const Loader = ({
-  type = 'inline',
+  type = 'inline',  
 }) => {
   const getLoaderTypeId = () => {
     try {
