@@ -4,14 +4,13 @@ import { readContract, createThirdwebClient, getContract } from "thirdweb";
 import { defineChain } from "thirdweb/chains";
 import Loader from "../Loader/Loader";
 import AssetListData from "../../../context/AssetListContext";
-import { pubAddressData } from "../../AppLayout";
 
 // create the client with your clientId, or secretKey if in a server environment
 const client = createThirdwebClient({
   clientId: process.env.REACT_APP_THIRDWEB_CLIENT_ID,
 });
 
-const chainId = 656476;
+const chainId = Number(process.env.REACT_APP_ARBITRUM_SEPOLIA_CHAIN_ID);
 
 // connect to your contract
 const contract = getContract({
@@ -23,7 +22,6 @@ const contract = getContract({
 
 const MyAssetList = () => {
   const { assetList, _setAssetList } = useContext(AssetListData);
-  const { pubAddress } = useContext(pubAddressData);
 
   useEffect(() => {
     getAllTokenURIs();
@@ -66,14 +64,9 @@ const MyAssetList = () => {
           </div>
         )}
         <>
-          {assetList.map(
-            (ele, index) => {
+          {assetList.map((ele, index) => {
             const assetID = index + 1;
-            return (
-              ele?.attributes[2]?.value === pubAddress && (
-                <AssetCard {...ele} assetID={assetID} key={index} />
-              )
-            );
+            return <AssetCard {...ele} assetID={assetID} key={index} />;
           })}
         </>
       </div>

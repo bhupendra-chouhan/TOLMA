@@ -120,7 +120,7 @@ contract Asset is ERC721URIStorage {
                 _ownerTokens[owner].pop();
                 break;
             }
-        }z
+        }
     }
 
     // Existing function to get all token URIs

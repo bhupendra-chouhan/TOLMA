@@ -19,7 +19,7 @@ const AssetVideo = () => {
         {/* Video element with thumbnail */}
         <video
           ref={videoRef}
-          src={`https://gateway.pinata.cloud/ipfs/${`bafybeia5rgv7cdibjx5tcho23nwt2dawbqsb7uvzl427j4m3cfjwqqmf7y`}`}
+          src={`https://gateway.pinata.cloud/ipfs/${attributes[0]?.value}`}
           className="w-[100%] object-cover rounded-lg"
           controls={isPlaying} // Show controls only when playing
           onPause={() => setIsPlaying(false)}
@@ -47,7 +47,7 @@ const AssetVideo = () => {
         <h2 className="text-2xl  font-bold mt-4">Price</h2>
         <h2 className="text-2xl  font-bold mt-4">
           Creator's Name:{" "}
-          <span className="font-normal">{attributes[0]?.value}</span>
+          <span className="font-normal">{attributes[1]?.value}</span>
         </h2>
         <h2 className="text-2xl  font-bold mt-4">
           Creator's Address:{" "}

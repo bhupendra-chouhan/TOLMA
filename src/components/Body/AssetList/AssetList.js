@@ -10,7 +10,7 @@ const client = createThirdwebClient({
   clientId: process.env.REACT_APP_THIRDWEB_CLIENT_ID,
 });
 
-const chainId = 656476;
+const chainId = Number(process.env.REACT_APP_ARBITRUM_SEPOLIA_CHAIN_ID);
 
 // connect to your contract
 const contract = getContract({
@@ -20,7 +20,7 @@ const contract = getContract({
     process.env.REACT_APP_ARBITRUM_SEPOLIA_DEPLOYED_SMART_CONTRACT_ADDRESS,
 });
 
-const NftList = () => {
+const AssetList = () => {
   const { assetList, _setAssetList } = useContext(AssetListData);
 
   useEffect(() => {
@@ -73,4 +73,4 @@ const NftList = () => {
   );
 };
 
-export default NftList;
+export default AssetList;
