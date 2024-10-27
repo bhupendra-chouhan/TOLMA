@@ -4,6 +4,7 @@ import { readContract, createThirdwebClient, getContract } from "thirdweb";
 import { defineChain } from "thirdweb/chains";
 import Loader from "../Loader/Loader";
 import AssetListData from "../../../context/AssetListContext";
+import { pubAddressData } from "../../AppLayout";
 
 // create the client with your clientId, or secretKey if in a server environment
 const client = createThirdwebClient({
@@ -22,53 +23,78 @@ const contract = getContract({
 
 const MyAssetList = () => {
   const { assetList, _setAssetList } = useContext(AssetListData);
+  const { pubAddress } = useContext(pubAddressData);
+  const [filteredList, _setFilteredList] = useState([]);
+
+  // Function to fetch the owner of a specific token
+  const getAssetOwner = async (tokenId) => {
+    try {
+      const assetOwner = await readContract({
+        contract,
+        method: "function ownerOf(uint256 tokenId) view returns (address)",
+        params: [tokenId],
+      });
+      return assetOwner;
+    } catch (error) {
+      console.error(`Error fetching owner for token ${tokenId}:`, error);
+      return null;
+    }
+  };
 
   useEffect(() => {
     getAllTokenURIs();
-  }, []);
+  }, [pubAddress]);
 
   const getAllTokenURIs = async () => {
-    let returnValue = await readContract({
-      contract: contract,
-      method: "function getAllTokenURIs() view returns (string[])",
-      params: [],
-    });
+    try {
+      let returnValue = await readContract({
+        contract: contract,
+        method: "function getAllTokenURIs() view returns (string[])",
+        params: [],
+      });
 
-    const resultPromises = [];
+      const myAssetsList = [];
 
-    returnValue.forEach((ipfsHash) => {
-      const promise = fetch(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`)
-        .then((res) => {
-          return res.json();
-        })
-        .catch((e) => {
-          console.error("cant fetch", e);
-        });
+      // Using for...of loop to properly handle async calls
+      for (const ipfsHashMetadata of returnValue) {
+        const tokenId = returnValue.indexOf(ipfsHashMetadata) + 1;
+        const assetOwner = await getAssetOwner(tokenId);
+        
+        if (assetOwner.toLowerCase() == pubAddress) {
+          console.log("ipfsHashMetadata", ipfsHashMetadata);
+          myAssetsList.push(ipfsHashMetadata);
+        }
+      }
+      
+      
 
-      resultPromises.push(promise);
-    });
+      // Fetch the metadata for each asset
+      const resultPromises = myAssetsList.map((ipfsHash) =>
+        fetch(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`)
+          .then((res) => res.json())
+          .catch((e) => {
+            console.error("Can't fetch", e);
+          })
+      );
 
-    Promise.all(resultPromises).then((values) => {
-      const successfullResponses = values.filter((val) => val);
-
-      _setAssetList(successfullResponses);
-    });
+      const values = await Promise.all(resultPromises);
+      const successfulResponses = values.filter((val) => val);
+      _setFilteredList(successfulResponses);
+    } catch (error) {
+      console.error("Error fetching token URIs:", error);
+    }
   };
 
   return (
     <div className="main-container p-4">
       <div className="flex flex-wrap justify-center">
-        {assetList?.length === 0 && (
-          <div className="mt-5">
-            <Loader />
-          </div>
+        {filteredList?.length === 0 && (
+          <div className="mt-5">You haven't created any asset.</div>
         )}
-        <>
-          {assetList.map((ele, index) => {
-            const assetID = index + 1;
-            return <AssetCard {...ele} assetID={assetID} key={index} />;
-          })}
-        </>
+        {filteredList.map((ele, index) => {
+          const assetID = index + 1;
+          return <AssetCard {...ele} assetID={assetID} key={index} />;
+        })}
       </div>
     </div>
   );
