@@ -102,7 +102,7 @@ const Header = ({ setPubAddress }) => {
               key={4}
               className="cursor-pointer border-blue-400 hover:bg-blue-500 hover:text-white text-black md:text-white  border rounded-lg p-2 hover:text-blue-500"
             >
-              <Link to="https://github.com/bhupendra-chouhan/" target="_blank">
+              <Link to="https://github.com/bhupendra-chouhan/TOLMA-Livepeer" target="_blank">
                 GitHub
               </Link>
             </li>
