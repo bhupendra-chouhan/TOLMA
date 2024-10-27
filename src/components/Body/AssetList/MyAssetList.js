@@ -64,8 +64,6 @@ const MyAssetList = () => {
           myAssetsList.push(ipfsHashMetadata);
         }
       }
-      
-      
 
       // Fetch the metadata for each asset
       const resultPromises = myAssetsList.map((ipfsHash) =>

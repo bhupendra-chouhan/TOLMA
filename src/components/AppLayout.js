@@ -3,12 +3,19 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header/Header";
 import pubAddressData from "../context/UserContext";
 import AssetListData from "../context/AssetListContext";
+import { ThirdwebProvider } from "thirdweb/react";
 
 const AppLayout = () => {
   const [pubAddress, _setPubAddress] = useState("");
   const [assetList, _setAssetList] = useState([]);
 
   return (
+    <ThirdwebProvider
+      activeChain="arbitrum-sepolia"
+      clientId={process.env.REACT_APP_THIRDWEB_CLIENT_ID}
+    >
+
+
     <div>
       <pubAddressData.Provider value={{ pubAddress }}>
         <Header setPubAddress={_setPubAddress} />
@@ -69,6 +76,7 @@ const AppLayout = () => {
         </AssetListData.Provider>
       </pubAddressData.Provider>
     </div>
+    </ThirdwebProvider>
   );
 };
 

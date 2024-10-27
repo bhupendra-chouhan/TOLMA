@@ -6,7 +6,7 @@ const pinata = new PinataSDK({
   pinataGateway: process.env.REACT_APP_PINATA_GATEWAY,
 });
 
-const IpfsNftUpload = ({ setUploadedNFTImageURI }) => {
+const IpfsNftVideoUpload = ({ setUploadedNFTVideoURI }) => {
   const [file, setFile] = useState(null);
   const [ipfsHash, setIpfsHash] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,7 @@ const IpfsNftUpload = ({ setUploadedNFTImageURI }) => {
       const upload = await pinata.upload.file(file);
       setIsLoading(false);
       setIpfsHash(upload.IpfsHash);
-      setUploadedNFTImageURI(upload.IpfsHash);
+      setUploadedNFTVideoURI(upload.IpfsHash);
     } catch (error) {
       console.log(error);
     }
@@ -65,10 +65,12 @@ const IpfsNftUpload = ({ setUploadedNFTImageURI }) => {
               Uploaded File Preview:
             </div>
           </div>
-          <img
+          <video
+            controls
             src={`https://gateway.pinata.cloud/ipfs/${ipfsHash}`}
-            width={200}
-            height={200}
+            poster={`https://gateway.pinata.cloud/ipfs/${ipfsHash}`}
+            width={500}
+            height={500}
             className="rounded-xl"
           />
         </div>
@@ -77,4 +79,4 @@ const IpfsNftUpload = ({ setUploadedNFTImageURI }) => {
   );
 };
 
-export default IpfsNftUpload;
+export default IpfsNftVideoUpload;
