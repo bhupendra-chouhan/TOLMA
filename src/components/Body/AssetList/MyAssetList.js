@@ -89,8 +89,14 @@ const MyAssetList = () => {
           <div className="mt-5">You haven't created any asset.</div>
         )}
         {filteredList.map((ele, index) => {
-          const assetID = index + 1;
-          return <AssetCard {...ele} assetID={assetID} key={index} />;
+          return (
+            <AssetCard
+              {...ele}
+              assetID={index + 1}
+              key={index}
+              showSellButton={true}
+            />
+          );
         })}
       </div>
     </div>

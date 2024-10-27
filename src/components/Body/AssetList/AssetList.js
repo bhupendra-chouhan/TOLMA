@@ -38,9 +38,7 @@ const AssetList = () => {
 
     returnValue.forEach((ipfsHash) => {
       const promise = fetch(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`)
-        .then((res) => {
-          return res.json();
-        })
+        .then((res) => res.json())
         .catch((e) => {
           console.error("cant fetch", e);
         });
@@ -49,9 +47,8 @@ const AssetList = () => {
     });
 
     Promise.all(resultPromises).then((values) => {
-      const successfullResponses = values.filter((val) => val);
-
-      _setAssetList(successfullResponses);
+      const successfulResponses = values.filter((val) => val);
+      _setAssetList(successfulResponses);
     });
   };
 
@@ -65,8 +62,17 @@ const AssetList = () => {
         )}
         <>
           {assetList.map((ele, index) => {
-            const assetID = index+1;
-           return <AssetCard {...ele} assetID={assetID} key={index} />;})}
+            const assetID = index + 1;
+            // Add a condition to only render cards with "Buy" button
+            return !ele.showSellButton ? ( // Assuming showSellButton is part of your asset data
+              <AssetCard
+                {...ele}
+                assetID={assetID}
+                showSellButton={false}
+                key={index}
+              />
+            ) : null;
+          })}
         </>
       </div>
     </div>
