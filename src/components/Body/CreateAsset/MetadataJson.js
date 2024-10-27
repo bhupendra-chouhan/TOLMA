@@ -40,9 +40,6 @@ const Metadata = () => {
   const [account, setAccount] = useState("");
   const [data, setData] = useState("");
 
-  // const {contract} = useContract(process.env.REACT_APP_ARBITRUM_SEPOLIA_DEPLOYED_SMART_CONTRACT_ADDRESS);
-  // const { mutateAsync: mint } = useContractWrite(contract, "mint");
-
   const { uploadedNFTImageURI, uploadedNFTVideoURI } =
     useContext(uploadedAssetURIData);
   const { pubAddress } = useContext(pubAddressData);
@@ -115,9 +112,7 @@ const Metadata = () => {
     try {
 
       if (contract) {
-        const transaction = await contract.mint(
-          "bafkreiaxuevqbctbj5wmr52u5d2rc5cdeccmuqbwvujymkvhxn5dicgewi"
-        ); // Replace with your function name
+        const transaction = await contract.mint(ipfsHash); // Replace with your function name
         await transaction.wait();
         console.log("Transaction successful:", transaction);
       }
