@@ -26,9 +26,9 @@ const AssetCard = ({
           src={`https://gateway.pinata.cloud/ipfs/${image}`}
         />
       </div>
-      <h2>
+      {/* <h2>
         <div className="text-2xl text-red-600">Asset ID: #{assetID}</div>
-      </h2>
+      </h2> */}
       <h2>
         <div className="text-4xl font-semibold">{name}</div>
       </h2>
