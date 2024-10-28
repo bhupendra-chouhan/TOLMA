@@ -110,8 +110,8 @@ The AI Video Asset Marketplace is a decentralized platform built on the Story Pr
 ## UI Screenshots
 - Desktop View
 ![image](https://github.com/user-attachments/assets/3cd73c14-3e9f-4bd2-a758-b51abde17a15)
-![image](https://github.com/user-attachments/assets/f8e4be6d-86a5-4f33-a444-b5b2ce84947e)
-![image](https://github.com/user-attachments/assets/925c42bf-d4b3-40ba-8405-33653d4da0cf)
+![image](https://github.com/user-attachments/assets/7705ad69-3046-4efd-878e-9d79a52dd7fe)
+![image](https://github.com/user-attachments/assets/9acf570f-e9a1-46f1-a33c-f2cda7835e03)
 
 - Mobile View
 ![image](https://github.com/user-attachments/assets/17c88525-c5e1-4c8d-a0eb-892c4cd34bb3)
