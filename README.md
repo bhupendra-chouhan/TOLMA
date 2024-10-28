@@ -10,7 +10,9 @@ The AI Video Asset Marketplace is a decentralized platform built on the Story Pr
 - Ensure transparent ownership and usage rights for all assets.
 - Enable trading of video prompts to foster creativity and innovation.
 
-### 1.3 Deployed Smart-Contract Address:
+### UI Desgin (Figma): [🔗LINK](https://www.figma.com/design/dLKXPw4PhF6LXw1f9haqMr/Untitled?node-id=0-1&t=nF7oWHvztAItnX1s-1)
+
+### 1.4 Deployed Smart-Contract Address:
 ```
 0xDDa21C8a993f261Da1e53c417358c606040eE8Ea
 ```
