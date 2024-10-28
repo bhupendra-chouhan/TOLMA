@@ -107,6 +107,19 @@ The AI Video Asset Marketplace is a decentralized platform built on the Story Pr
 4. Finally, start the server by using this command: ```npm run start```
 
 ---
+## UI Screenshots
+- Desktop View
+![image](https://github.com/user-attachments/assets/3cd73c14-3e9f-4bd2-a758-b51abde17a15)
+![image](https://github.com/user-attachments/assets/f8e4be6d-86a5-4f33-a444-b5b2ce84947e)
+![image](https://github.com/user-attachments/assets/925c42bf-d4b3-40ba-8405-33653d4da0cf)
+
+- Mobile View
+![image](https://github.com/user-attachments/assets/17c88525-c5e1-4c8d-a0eb-892c4cd34bb3)
+![image](https://github.com/user-attachments/assets/86a52ce4-b181-49a9-90b6-a283167e765f)
+
+
+
+---
 ## For Developers
 
 ### Building the AI Video Asset Marketplace
