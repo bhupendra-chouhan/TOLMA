@@ -65,7 +65,7 @@ const Header = ({ setPubAddress }) => {
 
   return (
     <header className="flex justify-between items-center p-4 bg-gray-800 text-white">
-      <h1 className="m-0 text-5xl font-bold min-w-fit">NFT Minter</h1>
+      <h1 className="m-0 text-5xl font-bold min-w-fit">TOLMA</h1>
       <div
         onClick={() => handleOpenMenu()}
         className="text-4xl absolute top-4 right-3 md:hidden cursor-pointer"
