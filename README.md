@@ -12,7 +12,7 @@ The AI Video Asset Marketplace is a decentralized platform built on the Story Pr
 
 ### 1.3 Deployed Smart-Contract Address:
 ```
-0x4f6a07C395AE6037Ba6b76649EcEB7d5bFe55e91
+0xDDa21C8a993f261Da1e53c417358c606040eE8Ea
 ```
 
 ---
@@ -94,7 +94,7 @@ The AI Video Asset Marketplace is a decentralized platform built on the Story Pr
 
     ARBITRUM_SEPOLIA_NETWORK_RPC_URL="https://sepolia-rollup.arbitrum.io/rpc"
     REACT_APP_ARBITRUM_SEPOLIA_CHAIN_ID=421614
-    REACT_APP_ARBITRUM_SEPOLIA_DEPLOYED_SMART_CONTRACT_ADDRESS="0x4f6a07C395AE6037Ba6b76649EcEB7d5bFe55e91"
+    REACT_APP_ARBITRUM_SEPOLIA_DEPLOYED_SMART_CONTRACT_ADDRESS="0xDDa21C8a993f261Da1e53c417358c606040eE8Ea"
 
     REACT_APP_THIRDWEB_CLIENT_ID=""
 
